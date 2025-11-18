@@ -11,13 +11,20 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "${db_port}:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${db_user_name}", "-d", "${db_name}"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+      start_period: 5s
 
   app:
     build: .
     container_name: pull-request-app
     restart: unless-stopped
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     env_file:
       - .env
     ports:
