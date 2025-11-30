@@ -26,6 +26,8 @@ class UserService:
         cls,
         user_repo: UserRepository,
         user_id: str
-    ) -> dict:
+    ) -> dict | None:
         user_prs = await user_repo.get_user_prs_when_reviewer(user_id=user_id)
+        if user_prs is None:
+            return None
         return {"user_id": user_id, "prs": user_prs}
