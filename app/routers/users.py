@@ -63,6 +63,8 @@ async def get_review_of_user(
             "user_id": prs["user_id"],
             "reviews_in": prs["prs"],
         }
+    except HTTPException as e:
+        raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 

@@ -16,6 +16,15 @@ ASYNC_DATABASE_URL = (f"postgresql+asyncpg://"
                       f"{DB_USER_NAME}:{DB_PASSWORD}"
                       f"@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
+TEST_DB_NAME = str(os.getenv("test_db_name"))
+TEST_DB_USER_NAME = str(os.getenv("test_db_user_name"))
+TEST_DB_PASSWORD = str(os.getenv("test_db_password"))
+TEST_DB_HOST = str(os.getenv("test_db_host"))
+TEST_DB_PORT = str(os.getenv("test_db_port", "5431"))
+TEST_ASYNC_DATABASE_URL = (f"postgresql+asyncpg://"
+                           f"{TEST_DB_USER_NAME}:{TEST_DB_PASSWORD}"
+                           f"@{TEST_DB_HOST}:{TEST_DB_PORT}/{TEST_DB_NAME}")
+
 # Logging configuration
 LOG_LEVEL = str(os.getenv("LOG_LEVEL", "INFO")).upper()
 LOG_FORMAT = str(os.getenv("LOG_FORMAT", "detailed"))
