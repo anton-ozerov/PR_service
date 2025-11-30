@@ -18,6 +18,25 @@ services:
       retries: 10
       start_period: 5s
 
+  test_postgres:
+    image: postgres:15.12
+    container_name: pr_test_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${test_db_name}
+      POSTGRES_USER: ${db_user_name}
+      POSTGRES_PASSWORD: ${db_password}
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    ports:
+      - "${test_db_port}:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${db_user_name}", "-d", "${test_db_name}"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+      start_period: 5s
+
   app:
     build: .
     container_name: pull-request-app
@@ -32,3 +51,4 @@ services:
 
 volumes:
   postgres_data:
+  postgres_test_data:
