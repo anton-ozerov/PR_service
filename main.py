@@ -35,6 +35,7 @@ app.include_router(users_router, prefix="/users")
 app.include_router(teams_router, prefix="/team")
 app.include_router(pull_request_router, prefix="/pullRequest")
 app.include_router(health_router, prefix="/health")
+print("test")
 
 
 if __name__ == "__main__":
